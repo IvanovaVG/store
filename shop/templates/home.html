@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <img class="img-fluid" style="width: 100%; height: 480px;" src="{% static 'images/fon.jpg' %}">
+            <div class="h-2 text-center">Добро пожаловать в наш магазин!
+            <br><br><h2>Наши товары</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for category in categories %}
+            <div class="col-9 col-md-6 col-lg-3">
+                <div class="card">
+
+                        <a href="{{category.get_url}}" style="text-decoration: none;"><img class="card-img" src="{{category.image.url}}" alt="{{category.name}} ">
+                             <p class="block mb-0">{{category.name}}</p>
+                        </a>
+
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+<div class="container-fluid">
+        <div class="row">
+             <div class="about text-left">
+              <br><br> О НАС<br>Магазин военной одежды представляет Вам широкий выбор товаров,<br> который приятно удивит, ведь кроме военной формы и снаряжения<br>у нас можно приобрести и одежду для охоты, рыбалки и просто для<br> активного отдыха. Внушительный выбор качественной одежды и <br>экипировки не оставит безразличными любителей активных
+                 военных<br> и спортивных игр, туристов, охотников, рыболовов.
+
+                 <p>Мы стараемся предоставить только качественный товар, только наилучшие<br>  образцыкамуфляжной одежды, при этом стараемся держать фиксированные<br> цены на товар. Для себя в нашем магазине кроме военной экипировки <br>вы сможете приобрести обувь, рюкзаки и сумки, а также различное <br>снаряжение.<br> <br> <br></p>
+           </div>
+           <img class="img-fluid" style="width: 100%; height: 480px;" src="{% static 'images/about.png' %}">
+
+
+        </div>
+    </div>
+
+
+{% endblock %}

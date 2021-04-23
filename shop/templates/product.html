@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Product
+{% endblock %}
+
+{% block content %}
+ <div class="container py-5">
+     <div class="row mt-5">
+         <div class="col-10 mx-auto col-md-6 my-3">
+
+             <img src="{{product.image.url}}" style="width: 300px;height: 340px;">
+
+         </div>
+     </div>
+     <div class="col-10 mx-auto col-md-6 my-3">
+         <div>
+             <h1 class="product_title">{{product.name}}</h1>
+              <h5 class="text-info font-italic mb-0">{{product.price}}</h5>
+             <p class="product_desc">Описание товара</p>
+             <p class="text-justify product_text">{{product.description}}</p>
+            <div class="inline">
+                 {% for size in sizes %}
+                      <input type="radio" class="size" id="{{ size.id }}" name="size" value="{{size.size}}" checked="checked">
+                      <label class="mr-3" for="{{size.id_for_label }}">{{size.size}}</label>
+                 {% endfor %}
+             </div>
+<script id="hello-data" type="application/json">
+    {"size_id": $('.size').on('click', function(){
+     $(this).attr('id');
+     });}
+</script>
+
+             <h5>{{size_id|json_script:"hello-data"}}</h5>
+             <h5>{{ size.id_for_label }}</h5>
+             {% if product.stock <= 0 %}
+             <p class="text-justify product_text">Закончилось на складе</p>
+             {% else %}
+           {% if request.user.is_authenticated and request.user.first_name %}
+                <a id = "" href="{% url 'add_cart' product_id=product.id size_id=2 user_id=request.user.id %}">Добавить в карзину</a>
+             {% else %}
+               <p class="text-justify product_text">Войдите,чтобы совершить покупку</p>
+{% endif %}
+
+                {% endif %}
+         </div>
+     </div>
+ </div>
+{% endblock %}

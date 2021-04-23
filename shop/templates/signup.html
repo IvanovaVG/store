@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+	Creat New Account
+{% endblock %}
+
+{% block content %}
+
+	<div>
+		{% if not form.is_valid %}
+			<div>
+				<br>
+				<h1 class="product_title text-center">
+					Регистрация
+				</h1>
+				<br>
+				<div class="col-9 col-sm-9 col-md-6 col-lg-5 mx-auto bg-light">
+					<br>
+					<p>Пожалуйста, введите информацию для регистрации</p>
+					<form method="post">
+						{% csrf_token %}
+						<p>{{ form | crispy }}</p>
+						<button type="submit" name="button" class="btn btn-secondary">Зарегистрироваться</button>
+					</form>
+
+				</div>
+			</div>
+		{% else %}
+		<div class="mx-auto">
+			<br>
+			<h1 class="product_title text-center">
+				Вы успешно зарегистрированы
+			</h1>
+			<br>
+			<div>
+				<p>Вы успешно зарегистрировались, совершайте покупки!</p>
+				<br>
+				<a href="{% url 'home' %}">Продолжить покупки</a>
+			</div>
+		</div>
+		{% endif %}
+	</div>
+
+
+{% endblock %}

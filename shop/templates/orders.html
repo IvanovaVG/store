@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+	Cart
+{% endblock %}
+
+{% block content %}
+
+	{% if not cart_items %}
+	<div class="text-center">
+		<br>
+		<h1 class="text-center product_title">
+			Ваша корзина пустая
+		</h1>
+		<br>
+		<p class="text-center">
+			Перейти <a href="{% url 'home' %}">обратно</a> к товарам
+		</p>
+	</div>
+
+	{% else %}
+	<div class="text-center">
+		<br>
+		<div class="text-center product_title">
+			Заказы
+		</div>
+	</div>
+	<div class="row mx-auto">
+		<div class="col-12 text-center">
+			<table class="table cart-table">
+				<thead class="cart-thead">
+					<tr>
+						<th colspan="5">
+							Ваши заказы
+						</th>
+					</tr>
+				</thead>
+				{% for cart_item in cart_items %}
+				<tr>
+					<td>
+						<a href="{{ cart_item.product.get_url }}">
+							<img src="{{cart_item.product.image.url}}" width="100" height="100">
+						</a>
+					</td>
+					<td class="text-left">
+						{{cart_item.product.name}}
+						<br>
+						Артикул: {{cart_item.product.id}}
+						<br>
+						Цена: {{cart_item.product.price}}
+						<br>
+						Размер: {{cart_item.size.size}}
+						<br>
+						Итого: {{cart_item.quantity}} x {{cart_item.product.price}}
+					</td>
+					<td>
+						${{cart_item.sub_total}}
+					</td>
+					<td>
+						{{cart_item.cart.date_added}}
+					</td>
+					<td>
+						{{cart_item.cart.date_added }}
+					</td>
+					<td>
+						{% if cart_item.status == 'order'%}
+							Создан
+						{% else %}
+							Получен
+						{% endif %}
+					</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+
+	</div>
+	{% endif %}
+		<div class="mx-auto">
+				<a href="{% url 'home' %}" style="text-decoration: none;">
+					<button type="button" class="btn btn-lg btn-block bg-dark text-white mt-3">
+						Обратно к товарам
+					</button>
+				</a>
+			</div>
+{% endblock %}
